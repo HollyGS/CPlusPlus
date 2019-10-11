@@ -1,0 +1,37 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main()
+{
+    string str;
+    string new_line;
+    string prev_line;
+    
+    cout << "Enter a string to be transformed into a pyramid: ";
+    cin >> str;
+    
+    int num = str.length() - 1;
+    string spaces (num, ' ');
+    
+    
+    for (size_t i = 0; i < str.length(); i++)
+    {
+        cout << spaces;
+        spaces.erase(0,1);
+
+        char new_char = str.at(i);
+        new_line += new_char;
+        cout << new_line;
+        
+        if(i !=0)
+        {
+            for(size_t j = i; j > 0; j--)
+            {
+                cout << prev_line.at(j-1);
+            }  
+        }
+        cout << endl;
+        prev_line = new_line;
+    }
+}
