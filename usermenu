@@ -1,0 +1,136 @@
+#include <iostream>
+#include <vector>
+#include <cctype>
+#include <string>
+using namespace std;
+
+// Prototypes for displaying the menu and accepting user input
+void display_menu();
+char get_selection();
+
+//Menu handling fuction prototypes
+void print(const vector<int> &number);
+void add_number(vector<int> &number);
+int mean(const vector<int> &number);
+int smallest_num(const vector<int> &number);
+int largest_num(const vector<int> &number);
+void goodbye();
+void error_message();
+
+
+int main() {
+
+    vector<int> numbers;
+    char selection = 0;
+    
+    do {
+        display_menu();
+        selection = get_selection();
+
+    switch(selection){
+        case 'P':
+            print(numbers);
+            break;
+        case 'A':
+            add_number(numbers);
+            break;
+        case 'M':
+            mean(numbers);
+            break;
+        case 'S':
+            smallest_num(numbers);
+            break;
+        case 'L':
+            largest_num(numbers);
+            break;
+        case 'Q':
+            goodbye();
+            break;
+        default:
+            error_message();
+            break;
+    } 
+    }while (selection != 'q' && selection != 'Q');
+
+    cout  << endl;
+    return 0;
+}
+
+void display_menu(){
+    // Display menu
+        cout << "\nP - Print numbers" << endl;
+        cout << "A - Add a number" << endl;
+        cout << "M - Display mean of the numbers" << endl;
+        cout << "S - Display the smallest number" << endl;
+        cout << "L - Display the largest number"<< endl;
+        cout << "Q - Quit" << endl;
+        cout << "\nEnter your choice: ";
+}
+
+char get_selection(){
+    char selection;
+    cin >> selection;
+    return toupper(selection);
+}
+
+void print(const vector<int> &numbers){
+    if (numbers.size() == 0)
+                cout << "[] - the list is empty" << endl;
+            else {
+                cout << "[ ";
+                for (auto num: numbers)
+                    cout << num << " ";
+                cout << "]" << endl;
+            }
+}
+
+void add_number(vector<int> &numbers){
+    int num_to_add;
+    cout << "Enter an integer to add to the list: ";
+    cin >> num_to_add;
+    numbers.push_back(num_to_add);
+    cout << num_to_add << " added" << endl;
+}
+
+int mean(vector<int> &numbers){
+    if (numbers.size() == 0)
+        cout << "Unable to calculate mean - no data" << endl;
+    else {
+        int total = 0;
+        for (auto num: numbers)
+            total += num;
+        cout << "The mean is : " << static_cast<double>(total)/numbers.size() << endl;
+    }
+}
+
+int smallest_num(vector<int> &numbers){
+    if (numbers.size() == 0) 
+                cout << "Unable to determine the smallest - list is empty" << endl;
+            else {
+                int smallest = numbers.at(0);
+                for (auto num: numbers)
+                    if (num < smallest)
+                        smallest = num;
+                cout << "The smallest number is: " << smallest << endl;
+            }
+}
+
+int largest_num(vector<int> &numbers){
+        if (numbers.size() == 0)
+                cout << "Unable to determine largest - list is empty"<< endl;   
+            else {
+                int largest = numbers.at(0);
+                for (auto num: numbers)
+                    if (num > largest)
+                        largest = num;
+                cout << "The largest number is: " << largest << endl;
+            }
+}
+
+void goodbye(){
+    cout << "Goodbye" << endl;
+}
+
+void error_message(){
+    cout << "Unknown selection, please try again" << endl;
+}
